@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gem "rake"
+gem "pg"
+gem "sinatra"
+gem "sinatra-contrib"
+gem "activerecord"
+gem "sinatra-activerecord"
+gem "pry"
+gem "json"
+gem "my_gem"
