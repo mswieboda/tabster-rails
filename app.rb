@@ -25,6 +25,10 @@ class Tab < ActiveRecord::Base
 
 end
 
+get "/home" do
+  erb :home
+end
+
 get "/" do
   tabs = Tab.order("created_at DESC")
   redirect "/new" if tabs.empty?

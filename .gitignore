@@ -11,3 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
+
+# NPM
+npm-debug.log*
+node_modules
