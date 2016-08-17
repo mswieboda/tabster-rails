@@ -1,29 +1,13 @@
 {
-  "name": "tabster",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "react-webpack-rails-tutorial",
+  "version": "0.0.1",
+  "engines": {
+    "node": "5.10.0",
+    "npm": "3.5.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mswieboda/tabster.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mswieboda/tabster/issues"
-  },
-  "homepage": "https://github.com/mswieboda/tabster#readme",
-  "private": true,
-  "devDependencies": {
-    "babel-core": "^6.9.0",
-    "babel-loader": "^6.2.4",
-    "file-loader": "^0.8.5",
-    "webpack": "^1.13.0"
-  },
-  "dependencies": {
-    "react": "^15.0.2"
+    "postinstall": "cd client && npm install",
+    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
+    "test": "rspec"
   }
 }
