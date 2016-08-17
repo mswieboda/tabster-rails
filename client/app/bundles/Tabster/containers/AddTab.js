@@ -1,9 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { addTab } from '../actions'
+import React from 'react';
+import { connect } from 'react-redux';
+import { addTab } from '../actions';
 
 let AddTab = ({ dispatch }) => {
-  let input
+  let input;
 
   return (
     <div>
@@ -23,8 +23,8 @@ let AddTab = ({ dispatch }) => {
         </button>
       </form>
     </div>
-  )
+  );
 }
-AddTab = connect()(AddTab)
+AddTab = connect()(AddTab);
 
-export default AddTab
+export default AddTab;
