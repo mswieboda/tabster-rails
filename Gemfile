@@ -26,10 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 group :development, :test do
-  gem 'pry'
   gem 'pry-rails'
-  gem 'pry-remote'
-  gem 'pry-byebug'
 end
 
 group :development do
