@@ -1,11 +1,13 @@
 import React from 'react';
-import AddTab from '../containers/AddTab';
-import VisibleTabList from '../containers/VisibleTabList';
+import { Route, Link } from 'react-router-dom';
+import Tabs from './Tabs'
 
-const App = () => (
+const App = ({match}) => (
   <div>
-    <VisibleTabList />
-    <AddTab />
+    <Route exact path="/" render={() => (
+      <Link to="/tabs">tabs</Link>
+    )}/>
+    <Route path="/tabs" component={Tabs} />
   </div>
 );
 
