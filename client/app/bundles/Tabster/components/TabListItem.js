@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 
-const TabListItem = ({ onClick, title }) => (
+const TabListItem = ({ id, onClick, title }) => (
   <li
     onClick={onClick}
   >
-    {title}
+    <Link to={`/tabs/show/${id}`} >{title}</Link>
   </li>
 );
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addTab } from '../actions';
 
-let AddTab = ({ match, dispatch }) => {
+let AddTab = ({ dispatch }) => {
   let input;
 
   return (

@@ -3,9 +3,10 @@ import TabListItem from './TabListItem';
 
 const TabList = ({ tabs, onTabClick }) => (
   <ul>
-    {tabs.map((tab,id) =>
+    {tabs.map((tab, id) =>
       <TabListItem
         key={id}
+        id={id}
         title={tab.title}
         onClick={() => onTabClick(id)}
       />
