@@ -1,5 +1,5 @@
 {
-  "name": "react-webpack-rails-tutorial",
+  "name": "tabster",
   "version": "0.0.1",
   "engines": {
     "node": "5.10.0",
@@ -9,5 +9,9 @@
     "postinstall": "cd client && npm install",
     "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
     "test": "rspec"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-router": "^4.1.1"
   }
 }

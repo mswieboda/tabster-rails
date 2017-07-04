@@ -4,8 +4,8 @@ import VisibleTabList from '../containers/VisibleTabList';
 
 const App = () => (
   <div>
-    <AddTab />
     <VisibleTabList />
+    <AddTab />
   </div>
 );
 
