@@ -39,3 +39,4 @@ end
 
 
 gem 'therubyracer', platforms: :ruby
+gem 'foreman'
