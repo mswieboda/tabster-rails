@@ -15,7 +15,7 @@ const Tabs = ({ match }) => (
     )} />
     <Route exact path={`${match.url}/new`} component={AddTab} />
     <Route exact path={`${match.url}/show/:index`} render={({ match }) => (
-      <TabShow />
+      <TabShow match={match} />
     )} />
   </div>
 );

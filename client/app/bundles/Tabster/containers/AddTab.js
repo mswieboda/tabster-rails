@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addTab } from '../actions';
+import { Link } from 'react-router-dom';
 
 let AddTab = ({ dispatch }) => {
   let input;
@@ -21,6 +22,8 @@ let AddTab = ({ dispatch }) => {
         <button type="submit">
           Add Tab
         </button>
+        <br />
+        <Link to="/tabs">Back to Tabs (hardcoded)</Link>
       </form>
     </div>
   );
