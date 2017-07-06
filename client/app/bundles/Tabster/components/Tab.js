@@ -19,14 +19,12 @@ export default class Tab extends React.Component {
   }
 
   handleToggleEditModeClick(event) {
-    console.log(">>> handleToggleEditModeClick");
     this.setState(prevState => ({
       editMode: !prevState.editMode
     }));
   }
 
   handleChange(event) {
-    console.log(">>> handleChange");
     const { name, value } = event.target;
     this.setState({ [name]: value });
   }
