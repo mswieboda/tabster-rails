@@ -1,19 +1,74 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Tab = ({ match, title, tab }) => (
-  <div>
-    <h1>{title}</h1>
-    <pre>{tab}</pre>
-    <Link to={`${match.url}/../..`}>Back to Tabs (not working)</Link>
-    <br />
-    <Link to="/tabs">Back to Tabs (hardcoded)</Link>
-  </div>
-)
+export default class Tab extends React.Component {
+  static propTypes = {
+    title: PropTypes.string,
+    tab: PropTypes.string,
+    editMode: PropTypes.bool
+  };
 
-Tab.propTypes = {
-  title: PropTypes.string,
-  tab: PropTypes.string
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false,
+      title: this.props.title,
+      tab: this.props.tab
+    };
+  }
 
-export default Tab
+  handleToggleEditModeClick(event) {
+    console.log(">>> handleToggleEditModeClick");
+    this.setState(prevState => ({
+      editMode: !prevState.editMode
+    }));
+  }
+
+  handleChange(event) {
+    console.log(">>> handleChange");
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  render() {
+    const { editMode, title, tab } = this.state;
+    const { match } = this.props;
+
+    return (
+      <div>
+        <button onClick={e => this.handleToggleEditModeClick(e)}>
+          {editMode ? 'View' : 'Edit'}
+        </button>
+        {!editMode &&
+          <div>
+            <h1>{title}</h1>
+            <pre>{tab}</pre>
+          </div>
+        }
+        {editMode &&
+          <div>
+            <div>
+              <input
+                name="title"
+                type="text"
+                value={title}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <div>
+              <textarea
+                name="tab"
+                value={tab}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+          </div>
+        }
+        <Link to={`${match.url}/../..`}>Back to Tabs (not working)</Link>
+        <br />
+        <Link to="/tabs">Back to Tabs (hardcoded)</Link>
+      </div>
+    );
+  }
+};

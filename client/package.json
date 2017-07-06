@@ -29,6 +29,7 @@
     "immutable": "^3.7.6",
     "imports-loader": "^0.6.5",
     "mirror-creator": "1.1.0",
+    "prop-types": "^15.5.10",
     "react": "^0.14.8 || ^15.0.0",
     "react-dom": "^0.14.8 || ^15.0.0",
     "react-on-rails": "6.0.5",

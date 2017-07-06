@@ -11,7 +11,6 @@ import tabsterApp from '../reducers'
 import App from '../components/App'
 
 const TabsterApp = (props, _railsContext) => {
-  // const store = createStore(props);
   const store = createStore(tabsterApp, props);
   const reactComponent = (
     <Provider store={store}>
