@@ -1,0 +1,17 @@
+name: tabster
+version: 0.0.1
+
+authors:
+  - Matt Swieboda <mswiebod@gmail.com>
+
+crystal: 0.23.0
+
+targets:
+  tabster:
+    main: src/tabster.cr
+
+license: MIT
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal

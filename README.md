@@ -4,7 +4,7 @@ Tabster
 To do the stuffs:
 
 ```
-bundle install
+crystal deps install
 
 cd client && yarn install
 cd ..

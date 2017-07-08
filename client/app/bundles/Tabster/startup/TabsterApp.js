@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactOnRails from 'react-on-rails';
+import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
   Route,
@@ -22,5 +22,7 @@ const TabsterApp = (props, _railsContext) => {
   return reactComponent;
 };
 
-// This is how react_on_rails can see the app in the browser.
-ReactOnRails.register({ TabsterApp });
+ReactDOM.render(
+  <TabsterApp />,
+  document.getElementById('app')
+);
