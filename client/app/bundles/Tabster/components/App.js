@@ -4,7 +4,7 @@ import Tabs from './Tabs'
 
 const App = ({match}) => (
   <div>
-    <Route exact path="/" render={() => (
+    <Route path="/" render={() => (
       <Link to="/tabs">tabs</Link>
     )}/>
     <Route path="/tabs" component={Tabs} />
