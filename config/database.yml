@@ -1,0 +1,13 @@
+defaults : &defaults
+  adapter: postgres
+  host: localhost
+  user: tabster
+  migration_files_path: ./db/migrations
+
+development:
+  db: tabster_development
+  <<: *defaults
+
+test:
+  db: tabster_test
+  <<: *defaults

@@ -4,7 +4,7 @@ version: 0.0.1
 authors:
   - Matt Swieboda <mswiebod@gmail.com>
 
-crystal: 0.23.0
+crystal: 0.22.0
 
 targets:
   tabster:
@@ -15,3 +15,10 @@ license: MIT
 dependencies:
   kemal:
     github: kemalcr/kemal
+    version: "~> 0.20"
+
+  jennifer:
+    github: imdrasil/jennifer.cr
+
+  icr:
+    github: greyblake/crystal-icr

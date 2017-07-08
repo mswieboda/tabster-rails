@@ -1,6 +1,6 @@
 require "kemal"
 
-require "./tabster/*"
+require "./core"
 require "./routes/*"
 
 module Tabster
