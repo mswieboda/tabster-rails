@@ -10,7 +10,7 @@ import { createStore } from 'redux'
 import tabsterApp from '../reducers'
 import App from '../components/App'
 
-const TabsterApp = (props, _railsContext) => {
+const TabsterApp = ({ props }, _railsContext) => {
   const store = createStore(tabsterApp, props);
   const reactComponent = (
     <Provider store={store}>
@@ -23,6 +23,6 @@ const TabsterApp = (props, _railsContext) => {
 };
 
 ReactDOM.render(
-  <TabsterApp />,
+  <TabsterApp props={props} />,
   document.getElementById('app')
 );
