@@ -17,6 +17,9 @@ dependencies:
     github: kemalcr/kemal
     version: "~> 0.20"
 
+  pg:
+    github: will/crystal-pg
+
   jennifer:
     github: imdrasil/jennifer.cr
 
