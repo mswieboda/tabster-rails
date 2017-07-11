@@ -93,25 +93,27 @@ export default class TabEditor extends React.Component {
 
   render() {
     return (
-      <div className="fretboard-container">
-        <div className="string-labels">
-          {strings.map((string, stringIndex) => <Label label={string} key={`s${stringIndex + 1}-label`} />)}
-        </div>
+      <div className="tabeditor-container">
+        <div className="fretboard-container">
+          <div className="string-labels">
+            {strings.map((string, stringIndex) => <Label label={string} key={`s${stringIndex + 1}-label`} />)}
+          </div>
 
-        <div className="fretboard">
-          {strings.map((string, stringIndex) =>
-            <StringRow
-              key={`s${stringIndex + 1}`}
-              numString={stringIndex + 1}
-              frets={frets}
-              onClickFretHandler={this.onClickFretHandler}
-            />)
-          }
-        </div>
+          <div className="fretboard">
+            {strings.map((string, stringIndex) =>
+              <StringRow
+                key={`s${stringIndex + 1}`}
+                numString={stringIndex + 1}
+                frets={frets}
+                onClickFretHandler={this.onClickFretHandler}
+              />)
+            }
+          </div>
 
-        <div className="fret-labels">
-          <div className="offset-label">&nbsp;</div>
-          {_.times(frets + 1, (fret) => <Label label={fret} key={`s${fret}-label`} />)}
+          <div className="fret-labels">
+            <div className="offset-label">&nbsp;</div>
+            {_.times(frets + 1, (fret) => <Label label={fret} key={`s${fret}-label`} />)}
+          </div>
         </div>
       </div>
     );

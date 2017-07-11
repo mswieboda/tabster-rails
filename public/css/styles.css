@@ -4,6 +4,15 @@ div, span {
   -webkit-box-sizing: border-box;
 }
 
+.tabeditor-container {
+  padding: 30px;
+  text-align: center;
+}
+
+.fretboard-container {
+  display: inline-block;
+}
+
 .fretboard-container .string-labels {
   display: inline-block;
 }
@@ -12,7 +21,7 @@ div, span {
   height: 30px;
   width: 25px;
   text-align: right;
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 .fretboard {
@@ -60,9 +69,11 @@ div, span {
 
 .fretboard-container .fret-labels .offset-label {
   display: inline-block;
-  width: 22px; /* 22 instead of 25 because of the offset of the frets SVGs*/
+  /* instead of 25 because of the offset of the frets SVGs */
+  /* shouldn't be this much off, but maybe something b/c of padding-right? */
+  width: 15px;
   height: 30px;
-  margin-right: 1px;
+  padding-right: 10px;
 }
 
 .fretboard-container .fret-labels .label {
@@ -70,4 +81,5 @@ div, span {
   width: 50px;
   height: 30px;
   text-align: center;
+  padding-top: 10px;
 }
