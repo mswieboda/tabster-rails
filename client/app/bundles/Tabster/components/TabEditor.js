@@ -1,27 +1,11 @@
 const cn = require('classnames');
+const _ = require('lodash');
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
-const frets = [
-  { n: 1 },
-  { n: 2 },
-  { n: 3, dot: true },
-  { n: 4 },
-  { n: 5, dot: true },
-  { n: 6 },
-  { n: 7, dot: true },
-  { n: 8 },
-  { n: 9, dot: true },
-  { n: 10 },
-  { n: 11 },
-  { n: 12, dot: true },
-  { n: 13 },
-  { n: 14, dot: true },
-  { n: 15 },
-  { n: 16, dot: true },
-  { n: 17 },
-];
+const frets = 17;
 const dots = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleDots = [12, 24];
 
@@ -29,40 +13,60 @@ let StringLabel = ({ label }) => (
   <div className="label">{label}</div>
 );
 
-let StringRow = ({ string, frets }) => {
+let StringRow = ({ numString, frets }) => {
   return (
     <div className="string">
-      {frets.map(fret =>
-        <Fret
-          key={`s${string}-f${fret.n}`}
-          fret={fret}
-          dot
-          doubleDot
-        />
+      {_.times(frets, (fretIndex) => {
+        const fret = fretIndex + 1;
+
+        const hasDot = _.includes(dots, fret);
+        const hasDotTop = hasDot && numString === strings.length / 2;
+        const hasDotBottom = hasDot && numString === strings.length / 2 + 1;
+
+        const isTopHigherDoubleDotString = numString === strings.length / 2 - 1;
+        const isBotHigherDoubleDotString = numString === strings.length / 2;
+        const isTopLowerMiddleString = numString === strings.length / 2 + 1;
+        const isBotLowerMiddleString = numString === strings.length / 2 + 2;
+
+        const hasDoubleDot = _.includes(doubleDots, fret);
+        const hasDoubleDotTop = hasDoubleDot && (isTopHigherDoubleDotString || isTopLowerMiddleString);
+        const hasDoubleDotBottom = hasDoubleDot && (isBotHigherDoubleDotString || isBotLowerMiddleString);
+
+        return (
+          <Fret
+            key={`s${numString}-f${fretIndex + 1}`}
+            fret={fret}
+            dotTop={hasDotTop || hasDoubleDotTop}
+            dotBottom={hasDotBottom || hasDoubleDotBottom}
+          />
+        )}
       )}
     </div>
   );
 };
 
-let Fret = ({ n }, { dot }, { doubleDot }) => {
-  const classes = cn({
-    fret: true,
-    dot: dot,
-    'double-dot': doubleDot
+let Fret = ({ fret, dotTop, dotBottom }) => {
+  const dotClass = cn({
+    'dot-top': dotTop,
+    'dot-bot': dotBottom
   });
 
-  return (<span className={classes}>&nbsp;</span>);
+  return (
+    <span className="fret"><span className={dotClass}>&nbsp;</span></span>
+  );
 };
 
 let TabEditor = () => {
   return (
     <div className="fretboard-container">
       <div className="string-labels">
-        {strings.map(string => <StringLabel label={string} key={`s${string}-label`} />)}
+        {strings.map((string, stringIndex) => <StringLabel label={string} key={`s${stringIndex + 1}-label`} />)}
       </div>
 
       <div className="fretboard">
-        {strings.map(string => <StringRow string={string} frets={frets} key={`s${string}`} />)}
+        {strings.map((string, stringIndex) =>
+          <StringRow numString={stringIndex + 1} frets={frets} key={`s${stringIndex + 1}`} />)
+        }
       </div>
     </div>
   );
