@@ -41,6 +41,9 @@ config = {
         test: /\.jsx?$/, loader: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css?$/, loader: 'css-loader'
+      }
     ],
   },
 };
@@ -48,11 +51,11 @@ config = {
 module.exports = config;
 
 if (devBuild) {
-  console.log('Webpack dev build for Rails'); // eslint-disable-line no-console
+  console.log('Webpack dev build'); // eslint-disable-line no-console
   module.exports.devtool = 'eval-source-map';
 } else {
   config.plugins.push(
     new webpack.optimize.DedupePlugin()
   );
-  console.log('Webpack production build for Rails'); // eslint-disable-line no-console
+  console.log('Webpack production build'); // eslint-disable-line no-console
 }

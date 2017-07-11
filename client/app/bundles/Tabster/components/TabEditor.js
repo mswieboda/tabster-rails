@@ -10,7 +10,7 @@ const frets = 17;
 const dots = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleDots = [12, 24];
 
-let StringLabel = ({ label }) => (
+let Label = ({ label }) => (
   <div className="label">{label}</div>
 );
 
@@ -95,7 +95,7 @@ export default class TabEditor extends React.Component {
     return (
       <div className="fretboard-container">
         <div className="string-labels">
-          {strings.map((string, stringIndex) => <StringLabel label={string} key={`s${stringIndex + 1}-label`} />)}
+          {strings.map((string, stringIndex) => <Label label={string} key={`s${stringIndex + 1}-label`} />)}
         </div>
 
         <div className="fretboard">
@@ -107,6 +107,11 @@ export default class TabEditor extends React.Component {
               onClickFretHandler={this.onClickFretHandler}
             />)
           }
+        </div>
+
+        <div className="fret-labels">
+          <div className="offset-label">&nbsp;</div>
+          {_.times(frets + 1, (fret) => <Label label={fret} key={`s${fret}-label`} />)}
         </div>
       </div>
     );
