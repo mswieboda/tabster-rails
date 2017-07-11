@@ -17,9 +17,7 @@ let StringLabel = ({ label }) => (
 let StringRow = ({ numString, frets, onClickFretHandler }) => {
   return (
     <div className="string">
-      {_.times(frets, (fretIndex) => {
-        const fret = fretIndex + 1;
-
+      {_.times(frets + 1, (fret) => {
         const hasDot = _.includes(dots, fret);
         const hasDotTop = hasDot && numString === strings.length / 2;
         const hasDotBottom = hasDot && numString === strings.length / 2 + 1;
@@ -35,7 +33,7 @@ let StringRow = ({ numString, frets, onClickFretHandler }) => {
 
         return (
           <Fret
-            key={`s${numString}-f${fretIndex + 1}`}
+            key={`s${numString}-f${fret}`}
             numString={numString}
             fret={fret}
             dotTop={hasDotTop || hasDoubleDotTop}
@@ -67,15 +65,18 @@ class Fret extends React.Component {
   }
 
   render() {
-    const { dotTop, dotBottom } = this.props;
-
+    const { fret, dotTop, dotBottom } = this.props;
     const dotClass = cn({
       'dot-top': dotTop,
       'dot-bot': dotBottom
     });
+    const fretClasses = cn({
+      'fret': true,
+      'open': fret === 0
+    });
 
     return (
-      <span className="fret" onClick={this.onClick}><span className={dotClass}>&nbsp;</span></span>
+      <span className={fretClasses} onClick={this.onClick}><span className={dotClass}>&nbsp;</span></span>
     );
   }
 };

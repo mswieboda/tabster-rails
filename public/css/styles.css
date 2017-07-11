@@ -32,6 +32,13 @@ div, span {
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='30'><line x1='45' x2='45' y1='0' y2='30' stroke='#626567' stroke-width='5'/><line x1='0' x2='50' y1='15' y2='15' stroke='#A6ACAF' stroke-width='5'/></svg>") no-repeat;
 }
 
+.fretboard .string .fret.open {
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='30'><line x1='40' x2='40' y1='0' y2='30' stroke='#626567' stroke-width='15'/><line x1='0' x2='50' y1='25' y2='15' stroke='#A6ACAF' stroke-width='5'/></svg>") no-repeat;
+}
+
 .fretboard .string .fret .dot-top {
   display: inline-block;
   width: 50px;
