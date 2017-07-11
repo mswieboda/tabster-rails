@@ -47,5 +47,5 @@ div, span {
 }
 
 .fretboard .string span:hover {
-  box-shadow: inset 0 0 3px #f0f;
+  box-shadow: 1px 1px 5px #000;
 }
