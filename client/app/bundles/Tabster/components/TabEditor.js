@@ -2,6 +2,7 @@ const cn = require('classnames');
 const _ = require('lodash');
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
@@ -13,7 +14,7 @@ let StringLabel = ({ label }) => (
   <div className="label">{label}</div>
 );
 
-let StringRow = ({ numString, frets }) => {
+let StringRow = ({ numString, frets, onClickFretHandler }) => {
   return (
     <div className="string">
       {_.times(frets, (fretIndex) => {
@@ -35,9 +36,11 @@ let StringRow = ({ numString, frets }) => {
         return (
           <Fret
             key={`s${numString}-f${fretIndex + 1}`}
+            numString={numString}
             fret={fret}
             dotTop={hasDotTop || hasDoubleDotTop}
             dotBottom={hasDotBottom || hasDoubleDotBottom}
+            onClickFretHandler={onClickFretHandler}
           />
         )}
       )}
@@ -45,31 +48,66 @@ let StringRow = ({ numString, frets }) => {
   );
 };
 
-let Fret = ({ fret, dotTop, dotBottom }) => {
-  const dotClass = cn({
-    'dot-top': dotTop,
-    'dot-bot': dotBottom
-  });
+class Fret extends React.Component {
+  static propTypes = {
+    fret: PropTypes.number,
+    numString: PropTypes.number,
+    dotTop: PropTypes.bool,
+    dotBottom: PropTypes.bool,
+    onClickFretHandler: PropTypes.func
+  };
 
-  return (
-    <span className="fret"><span className={dotClass}>&nbsp;</span></span>
-  );
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(event) {
+    this.props.onClickFretHandler(this.props.numString, this.props.fret);
+  }
+
+  render() {
+    const { dotTop, dotBottom } = this.props;
+
+    const dotClass = cn({
+      'dot-top': dotTop,
+      'dot-bot': dotBottom
+    });
+
+    return (
+      <span className="fret" onClick={this.onClick}><span className={dotClass}>&nbsp;</span></span>
+    );
+  }
 };
 
-let TabEditor = () => {
-  return (
-    <div className="fretboard-container">
-      <div className="string-labels">
-        {strings.map((string, stringIndex) => <StringLabel label={string} key={`s${stringIndex + 1}-label`} />)}
-      </div>
+export default class TabEditor extends React.Component {
+  constructor() {
+    super();
+    this.onClickFretHandler = this.onClickFretHandler.bind(this);
+  }
 
-      <div className="fretboard">
-        {strings.map((string, stringIndex) =>
-          <StringRow numString={stringIndex + 1} frets={frets} key={`s${stringIndex + 1}`} />)
-        }
-      </div>
-    </div>
-  );
-}
+  onClickFretHandler(numString, fret) {
+    console.log(`s${numString}f${fret}`)
+  }
 
-export default TabEditor;
+  render() {
+    return (
+      <div className="fretboard-container">
+        <div className="string-labels">
+          {strings.map((string, stringIndex) => <StringLabel label={string} key={`s${stringIndex + 1}-label`} />)}
+        </div>
+
+        <div className="fretboard">
+          {strings.map((string, stringIndex) =>
+            <StringRow
+              key={`s${stringIndex + 1}`}
+              numString={stringIndex + 1}
+              frets={frets}
+              onClickFretHandler={this.onClickFretHandler}
+            />)
+          }
+        </div>
+      </div>
+    );
+  }
+};
