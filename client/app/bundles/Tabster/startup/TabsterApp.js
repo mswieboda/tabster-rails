@@ -10,8 +10,8 @@ import { createStore } from 'redux'
 import tabsterApp from '../reducers'
 import App from '../components/App'
 
-require("../../../../css/marx.min.css");
-require("../../../../css/marx.styl.min.css");
+require("style-loader!css-loader!../../../../css/marx.min.css");
+require("style-loader!css-loader!../../../../css/marx.styl.min.css");
 require("../../../../css/styles.css");
 
 const TabsterApp = ({ props }, _railsContext) => {

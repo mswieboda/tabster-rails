@@ -45,8 +45,12 @@ config = {
       {
         test: /\.css?$/,
         loader: 'style-loader!css-loader',
-        include: /flexboxgrid/,
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css?$/,
+        loader: 'style-loader!css-loader',
+        include: /flexboxgrid/,
       },
     ]
   },
