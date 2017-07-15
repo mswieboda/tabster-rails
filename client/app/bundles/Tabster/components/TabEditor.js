@@ -17,36 +17,64 @@ let Label = ({ label }) => (
   <span>{label}</span>
 );
 
-let StringRow = ({ numString, frets, onClickFretHandler }) => {
-  return (
-    <Row className="string">
-      {_.times(frets + 1, (fret) => {
-        const hasDot = _.includes(dots, fret);
-        const hasDotTop = hasDot && numString === strings.length / 2;
-        const hasDotBottom = hasDot && numString === strings.length / 2 + 1;
+class StringRow extends React.Component {
+  static propTypes = {
+    numString: PropTypes.number,
+    frets: PropTypes.number,
+    onClickFretHandler: PropTypes.func
+  };
 
-        const isTopHigherDoubleDotString = numString === strings.length / 2 - 1;
-        const isBotHigherDoubleDotString = numString === strings.length / 2;
-        const isTopLowerMiddleString = numString === strings.length / 2 + 1;
-        const isBotLowerMiddleString = numString === strings.length / 2 + 2;
+  constructor(props) {
+    super(props);
+    this.state = { selectedFret: null };
+    this.onClickFretHandler = this.onClickFretHandler.bind(this);
+  }
 
-        const hasDoubleDot = _.includes(doubleDots, fret);
-        const hasDoubleDotTop = hasDoubleDot && (isTopHigherDoubleDotString || isTopLowerMiddleString);
-        const hasDoubleDotBottom = hasDoubleDot && (isBotHigherDoubleDotString || isBotLowerMiddleString);
+  onClickFretHandler(numString, fret) {
+    if (this.state.selectedFret === fret) {
+      this.setState({ selectedFret: null });
+    }
+    else {
+      this.props.onClickFretHandler(numString, fret);
+      this.setState({ selectedFret: fret });
+    }
+  }
 
-        return (
-          <Fret
-            key={`s${numString}-f${fret}`}
-            numString={numString}
-            fret={fret}
-            dotTop={hasDotTop || hasDoubleDotTop}
-            dotBottom={hasDotBottom || hasDoubleDotBottom}
-            onClickFretHandler={onClickFretHandler}
-          />
+  render() {
+    const { selectedFret } = this.state;
+    const { numString, frets } = this.props;
+
+    return (
+      <Row className="string">
+        {_.times(frets + 1, (fret) => {
+          const hasDot = _.includes(dots, fret);
+          const hasDotTop = hasDot && numString === strings.length / 2;
+          const hasDotBottom = hasDot && numString === strings.length / 2 + 1;
+
+          const isTopHigherDoubleDotString = numString === strings.length / 2 - 1;
+          const isBotHigherDoubleDotString = numString === strings.length / 2;
+          const isTopLowerMiddleString = numString === strings.length / 2 + 1;
+          const isBotLowerMiddleString = numString === strings.length / 2 + 2;
+
+          const hasDoubleDot = _.includes(doubleDots, fret);
+          const hasDoubleDotTop = hasDoubleDot && (isTopHigherDoubleDotString || isTopLowerMiddleString);
+          const hasDoubleDotBottom = hasDoubleDot && (isBotHigherDoubleDotString || isBotLowerMiddleString);
+
+          return (
+            <Fret
+              key={`s${numString}-f${fret}`}
+              numString={numString}
+              fret={fret}
+              dotTop={hasDotTop || hasDoubleDotTop}
+              dotBottom={hasDotBottom || hasDoubleDotBottom}
+              onClickFretHandler={this.onClickFretHandler}
+              selected={fret === selectedFret}
+            />
+          )}
         )}
-      )}
-    </Row>
-  );
+      </Row>
+    );
+  }
 };
 
 class Fret extends React.Component {
@@ -55,23 +83,21 @@ class Fret extends React.Component {
     numString: PropTypes.number,
     dotTop: PropTypes.bool,
     dotBottom: PropTypes.bool,
-    onClickFretHandler: PropTypes.func
+    onClickFretHandler: PropTypes.func,
+    selected: PropTypes.bool
   };
 
   constructor(props) {
     super(props);
-    this.state = { selected: false };
     this.onClick = this.onClick.bind(this);
   }
 
   onClick(event) {
-    this.setState({selected: !this.state.selected});
     this.props.onClickFretHandler(this.props.numString, this.props.fret);
   }
 
   render() {
-    const { fret, dotTop, dotBottom } = this.props;
-    const { selected } = this.state;
+    const { fret, dotTop, dotBottom, selected } = this.props;
     const fretClasses = cn({
       'fret': true,
       'open': fret === 0,
