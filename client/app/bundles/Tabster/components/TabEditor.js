@@ -67,17 +67,15 @@ class Fret extends React.Component {
 
   render() {
     const { fret, dotTop, dotBottom } = this.props;
-    const dotClass = cn({
+    const fretClasses = cn({
+      'fret': true,
+      'open': fret === 0,
       'dot-top': dotTop,
       'dot-bot': dotBottom
     });
-    const fretClasses = cn({
-      'fret': true,
-      'open': fret === 0
-    });
 
     return (
-      <Col xs className={fretClasses} onClick={this.onClick}><span className={dotClass}>&nbsp;</span></Col>
+      <Col xs className={fretClasses} onClick={this.onClick}>&nbsp;</Col>
     );
   }
 };
