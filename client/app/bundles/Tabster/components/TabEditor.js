@@ -92,7 +92,7 @@ export default class TabEditor extends React.Component {
 
   render() {
     return (
-      <Grid fluid>
+      <Grid fluid className="tabeditor-container">
         <Row className="fretboard-container">
           <Col xs={1} className="string-labels">
             {strings.map((string, stringIndex) =>

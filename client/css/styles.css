@@ -1,3 +1,7 @@
+.tabeditor-container {
+  min-width: 500px;
+}
+
 .fretboard {
   border: 2px solid #6E2C00;
   border-radius: 10px;
