@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
+import Button from './Button'
+
 const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
 const frets = 17;
 const dots = [3, 5, 7, 9, 15, 17, 19, 21];
@@ -101,7 +103,7 @@ export default class TabEditor extends React.Component {
           <Col xs={1}>
             <Row>
               <Col xs={8} className="controls">
-                Test
+                <Button label="Test" />
               </Col>
               <Col xs={4} className="string-labels">
                 {strings.map((string, stringIndex) =>

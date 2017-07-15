@@ -1,1 +1,1 @@
-client: sh -c 'rm public/js/webpack/* || true && cd client && yarn run build:development'
+client: sh -c 'rm public/js/webpack/* || true && cd client && yarn run watch'
