@@ -4,6 +4,7 @@ const _ = require('lodash');
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
 const frets = 17;
@@ -11,12 +12,12 @@ const dots = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleDots = [12, 24];
 
 let Label = ({ label }) => (
-  <div className="label">{label}</div>
+  <span>{label}</span>
 );
 
 let StringRow = ({ numString, frets, onClickFretHandler }) => {
   return (
-    <div className="string">
+    <Row className="string">
       {_.times(frets + 1, (fret) => {
         const hasDot = _.includes(dots, fret);
         const hasDotTop = hasDot && numString === strings.length / 2;
@@ -42,7 +43,7 @@ let StringRow = ({ numString, frets, onClickFretHandler }) => {
           />
         )}
       )}
-    </div>
+    </Row>
   );
 };
 
@@ -76,7 +77,7 @@ class Fret extends React.Component {
     });
 
     return (
-      <span className={fretClasses} onClick={this.onClick}><span className={dotClass}>&nbsp;</span></span>
+      <Col xs className={fretClasses} onClick={this.onClick}><span className={dotClass}>&nbsp;</span></Col>
     );
   }
 };
@@ -93,13 +94,19 @@ export default class TabEditor extends React.Component {
 
   render() {
     return (
-      <div className="tabeditor-container">
-        <div className="fretboard-container">
-          <div className="string-labels">
-            {strings.map((string, stringIndex) => <Label label={string} key={`s${stringIndex + 1}-label`} />)}
-          </div>
+      <Grid fluid>
+        <Row className="fretboard-container">
+          <Col xs={1} className="string-labels">
+            {strings.map((string, stringIndex) =>
+              <Row end="xs" key={`s${stringIndex + 1}-label`}>
+                <Col xs>
+                  <Label label={string} />
+                </Col>
+              </Row>
+            )}
+          </Col>
 
-          <div className="fretboard">
+          <Col xs={11} className="fretboard">
             {strings.map((string, stringIndex) =>
               <StringRow
                 key={`s${stringIndex + 1}`}
@@ -108,14 +115,16 @@ export default class TabEditor extends React.Component {
                 onClickFretHandler={this.onClickFretHandler}
               />)
             }
-          </div>
-
-          <div className="fret-labels">
-            <div className="offset-label">&nbsp;</div>
-            {_.times(frets + 1, (fret) => <Label label={fret} key={`s${fret}-label`} />)}
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+        <Row className="fret-labels">
+          <Col xsOffset={1} xs={11}>
+            <Row>
+              {_.times(frets + 1, (fret) => <Col xs key={`s${fret}-label`}><Label label={fret} /></Col>)}
+            </Row>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 };

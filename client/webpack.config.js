@@ -14,11 +14,11 @@ config = {
 
   output: {
     filename: 'webpack-bundle.js',
-    path: '../public/js/webpack',
+    path: path.resolve(__dirname, '../public/js/webpack'),
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom'),
@@ -32,19 +32,23 @@ config = {
     }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: require.resolve('react'),
-        loader: 'imports?shim=es5-shim/es5-shim&sham=es5-shim/es5-sham',
+        loader: 'imports-loader?shim=es5-shim/es5-shim&sham=es5-shim/es5-sham',
       },
       {
-        test: /\.jsx?$/, loader: 'babel-loader',
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
       },
       {
-        test: /\.css?$/, loader: 'css-loader'
-      }
-    ],
+        test: /\.css?$/,
+        loader: 'style-loader!css-loader',
+        include: /flexboxgrid/,
+        exclude: /node_modules/,
+      },
+    ]
   },
 };
 

@@ -10,6 +10,10 @@ import { createStore } from 'redux'
 import tabsterApp from '../reducers'
 import App from '../components/App'
 
+require("../../../../css/marx.min.css");
+require("../../../../css/marx.styl.min.css");
+require("../../../../css/styles.css");
+
 const TabsterApp = ({ props }, _railsContext) => {
   const store = createStore(tabsterApp, props);
   const reactComponent = (
