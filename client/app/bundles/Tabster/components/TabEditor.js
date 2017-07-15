@@ -58,20 +58,24 @@ class Fret extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = { selected: false };
     this.onClick = this.onClick.bind(this);
   }
 
   onClick(event) {
+    this.setState({selected: !this.state.selected});
     this.props.onClickFretHandler(this.props.numString, this.props.fret);
   }
 
   render() {
     const { fret, dotTop, dotBottom } = this.props;
+    const { selected } = this.state;
     const fretClasses = cn({
       'fret': true,
       'open': fret === 0,
       'dot-top': dotTop,
-      'dot-bot': dotBottom
+      'dot-bot': dotBottom,
+      'selected': selected
     });
 
     return (

@@ -24,6 +24,10 @@
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><circle cx='40%' cy='0%' r='7'/><line x1='90%' x2='90%' y1='0%' y2='100%' stroke='#626567' stroke-width='5'/><line x1='0%' x2='100%' y1='50%' y2='50%' stroke='#A6ACAF' stroke-width='5'/></svg>") no-repeat;
 }
 
+.fretboard .string .fret.selected {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><line x1='90%' x2='90%' y1='0%' y2='100%' stroke='#626567' stroke-width='5'/><line x1='0%' x2='100%' y1='50%' y2='50%' stroke='#A6ACAF' stroke-width='5'/><circle cx='70%' cy='50%' r='9' stroke='#ff0000' stroke-width='5' fill='transparent'/></svg>") no-repeat;
+}
+
 .fretboard .string .fret:hover {
   box-shadow: 1px 1px 5px #000;
 }
