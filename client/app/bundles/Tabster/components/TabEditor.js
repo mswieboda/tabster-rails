@@ -120,7 +120,7 @@ export default class TabEditor extends React.Component {
 
   constructor() {
     super();
-    this.state = { tabOutput: _.fill(Array(STRINGS.length - 1), '-') };
+    this.state = { tabOutput: _.fill(Array(STRINGS.length), '-') };
     this.handleFretClick = this.handleFretClick.bind(this);
     this.handleAddToTab = this.handleAddToTab.bind(this);
   }
