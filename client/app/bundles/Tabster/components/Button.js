@@ -6,7 +6,7 @@ export default class Button extends React.Component {
       <button
         className={this.props.className}
         style={this.props.style}
-        onClick={this.props.handleClick}
+        onClick={this.props.onClick}
       >
         {this.props.label}
       </button>

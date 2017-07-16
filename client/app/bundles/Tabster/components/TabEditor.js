@@ -8,10 +8,10 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import Button from './Button'
 
-const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
-const frets = 17;
-const dots = [3, 5, 7, 9, 15, 17, 19, 21];
-const doubleDots = [12, 24];
+const STRINGS = ['e', 'B', 'G', 'D', 'A', 'E'];
+const FRETS = 17;
+const DOTS = [3, 5, 7, 9, 15, 17, 19, 21];
+const DOUBLE_DOTS = [12, 24];
 
 let Label = ({ label }) => (
   <span>{label}</span>
@@ -32,6 +32,7 @@ class StringRow extends React.Component {
 
   onClickFretHandler(numString, fret) {
     if (this.state.selectedFret === fret) {
+      this.props.onClickFretHandler(numString, '-');
       this.setState({ selectedFret: null });
     }
     else {
@@ -47,16 +48,16 @@ class StringRow extends React.Component {
     return (
       <Row className="string">
         {_.times(frets + 1, (fret) => {
-          const hasDot = _.includes(dots, fret);
-          const hasDotTop = hasDot && numString === strings.length / 2;
-          const hasDotBottom = hasDot && numString === strings.length / 2 + 1;
+          const hasDot = _.includes(DOTS, fret);
+          const hasDotTop = hasDot && numString === STRINGS.length / 2;
+          const hasDotBottom = hasDot && numString === STRINGS.length / 2 + 1;
 
-          const isTopHigherDoubleDotString = numString === strings.length / 2 - 1;
-          const isBotHigherDoubleDotString = numString === strings.length / 2;
-          const isTopLowerMiddleString = numString === strings.length / 2 + 1;
-          const isBotLowerMiddleString = numString === strings.length / 2 + 2;
+          const isTopHigherDoubleDotString = numString === STRINGS.length / 2 - 1;
+          const isBotHigherDoubleDotString = numString === STRINGS.length / 2;
+          const isTopLowerMiddleString = numString === STRINGS.length / 2 + 1;
+          const isBotLowerMiddleString = numString === STRINGS.length / 2 + 2;
 
-          const hasDoubleDot = _.includes(doubleDots, fret);
+          const hasDoubleDot = _.includes(DOUBLE_DOTS, fret);
           const hasDoubleDotTop = hasDoubleDot && (isTopHigherDoubleDotString || isTopLowerMiddleString);
           const hasDoubleDotBottom = hasDoubleDot && (isBotHigherDoubleDotString || isBotLowerMiddleString);
 
@@ -115,11 +116,21 @@ class Fret extends React.Component {
 export default class TabEditor extends React.Component {
   constructor() {
     super();
+    this.state = { tabOutput: _.fill(Array(STRINGS.length - 1), '-') };
     this.onClickFretHandler = this.onClickFretHandler.bind(this);
+    this.onClickAddToTabHandler = this.onClickAddToTabHandler.bind(this);
   }
 
   onClickFretHandler(numString, fret) {
-    console.log(`s${numString}f${fret}`)
+    let { tabOutput } = this.state;
+
+    tabOutput[numString - 1] = fret;
+
+    this.setState({ tabOutput: tabOutput });
+  }
+
+  onClickAddToTabHandler(e) {
+    console.log(this.state.tabOutput.join("\n"));
   }
 
   render() {
@@ -129,10 +140,10 @@ export default class TabEditor extends React.Component {
           <Col xs={1}>
             <Row>
               <Col xs={8} className="controls">
-                <Button label="Test" />
+                <Button label="Add" onClick={this.onClickAddToTabHandler} />
               </Col>
               <Col xs={4} className="string-labels">
-                {strings.map((string, stringIndex) =>
+                {STRINGS.map((string, stringIndex) =>
                   <Row end="xs" key={`s${stringIndex + 1}-label`}>
                     <Col xs>
                       <Label label={string} />
@@ -144,11 +155,11 @@ export default class TabEditor extends React.Component {
           </Col>
 
           <Col xs={11} className="fretboard">
-            {strings.map((string, stringIndex) =>
+            {STRINGS.map((string, stringIndex) =>
               <StringRow
                 key={`s${stringIndex + 1}`}
                 numString={stringIndex + 1}
-                frets={frets}
+                frets={FRETS}
                 onClickFretHandler={this.onClickFretHandler}
               />)
             }
@@ -157,7 +168,7 @@ export default class TabEditor extends React.Component {
         <Row className="fret-labels">
           <Col xsOffset={1} xs={11}>
             <Row>
-              {_.times(frets + 1, (fret) => <Col xs key={`s${fret}-label`}><Label label={fret} /></Col>)}
+              {_.times(FRETS + 1, (fret) => <Col xs key={`s${fret}-label`}><Label label={fret} /></Col>)}
             </Row>
           </Col>
         </Row>
