@@ -50,10 +50,12 @@ export default class Tab extends React.Component {
 
   handleAddToTab(tabOutput) {
     let { selection, tab } = this.state;
+    let { sectionIndex, column } = selection;
 
-    if (tab[selection.sectionIndex].type == "tab") {
-      _.forEach(tab[selection.sectionIndex].value, (row, index) => {
-        row[selection.column] = tabOutput[index];
+    if (tab[sectionIndex].type == "tab") {
+      // Replaces the chord at the selected column, with desired chord
+      _.forEach(tab[sectionIndex].value, (row, index) => {
+        row[column] = tabOutput[index];
       });
     }
     else {
@@ -63,12 +65,20 @@ export default class Tab extends React.Component {
     this.setState({ tab: tab });
   }
 
+  tabToString(tab) {
+    return tab.map(section => {
+      return section.type === "tab" ? this.tabSectionToString(section) : section.value;
+    }).join("\n");
+  }
+
+  tabSectionToString(section) {
+    return section.value.map(row => row.join("")).join("\n");
+  }
+
   render() {
     const { editMode, title, tab } = this.state;
     const { match } = this.props;
-    const tabText = tab.map(t => {
-      return t.type === "tab" ? t.value.map(row => row.join("")).join("\n") : t.value;
-    }).join("\n");
+    const tabText = this.tabToString(tab);
 
     return (
       <div>
