@@ -7,7 +7,7 @@ post "/api/tabs/create" do |env|
   TabsController.create(env.params.body.to_h)
 end
 
-get "/*path" do
+get "/*" do
   TabsController.index
 end
 

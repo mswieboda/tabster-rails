@@ -21,22 +21,22 @@ class StringRow extends React.Component {
   static propTypes = {
     numString: PropTypes.number,
     frets: PropTypes.number,
-    onClickFretHandler: PropTypes.func
+    handleFretClick: PropTypes.func
   };
 
   constructor(props) {
     super(props);
     this.state = { selectedFret: null };
-    this.onClickFretHandler = this.onClickFretHandler.bind(this);
+    this.handleFretClick = this.handleFretClick.bind(this);
   }
 
-  onClickFretHandler(numString, fret) {
+  handleFretClick(numString, fret) {
     if (this.state.selectedFret === fret) {
-      this.props.onClickFretHandler(numString, '-');
+      this.props.handleFretClick(numString, '-');
       this.setState({ selectedFret: null });
     }
     else {
-      this.props.onClickFretHandler(numString, fret);
+      this.props.handleFretClick(numString, fret);
       this.setState({ selectedFret: fret });
     }
   }
@@ -68,7 +68,7 @@ class StringRow extends React.Component {
               fret={fret}
               dotTop={hasDotTop || hasDoubleDotTop}
               dotBottom={hasDotBottom || hasDoubleDotBottom}
-              onClickFretHandler={this.onClickFretHandler}
+              handleFretClick={this.handleFretClick}
               selected={fret === selectedFret}
             />
           )}
@@ -84,17 +84,17 @@ class Fret extends React.Component {
     numString: PropTypes.number,
     dotTop: PropTypes.bool,
     dotBottom: PropTypes.bool,
-    onClickFretHandler: PropTypes.func,
+    handleFretClick: PropTypes.func,
     selected: PropTypes.bool
   };
 
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  onClick(event) {
-    this.props.onClickFretHandler(this.props.numString, this.props.fret);
+  handleClick(event) {
+    this.props.handleFretClick(this.props.numString, this.props.fret);
   }
 
   render() {
@@ -108,20 +108,24 @@ class Fret extends React.Component {
     });
 
     return (
-      <Col xs className={fretClasses} onClick={this.onClick}>&nbsp;</Col>
+      <Col xs className={fretClasses} onClick={this.handleClick}>&nbsp;</Col>
     );
   }
 };
 
 export default class TabEditor extends React.Component {
+  static propTypes = {
+    handleAddToTab: PropTypes.func,
+  };
+
   constructor() {
     super();
     this.state = { tabOutput: _.fill(Array(STRINGS.length - 1), '-') };
-    this.onClickFretHandler = this.onClickFretHandler.bind(this);
-    this.onClickAddToTabHandler = this.onClickAddToTabHandler.bind(this);
+    this.handleFretClick = this.handleFretClick.bind(this);
+    this.handleAddToTab = this.handleAddToTab.bind(this);
   }
 
-  onClickFretHandler(numString, fret) {
+  handleFretClick(numString, fret) {
     let { tabOutput } = this.state;
 
     tabOutput[numString - 1] = fret;
@@ -129,8 +133,8 @@ export default class TabEditor extends React.Component {
     this.setState({ tabOutput: tabOutput });
   }
 
-  onClickAddToTabHandler(e) {
-    console.log(this.state.tabOutput.join("\n"));
+  handleAddToTab(e) {
+    this.props.handleAddToTab(this.state.tabOutput);
   }
 
   render() {
@@ -140,7 +144,7 @@ export default class TabEditor extends React.Component {
           <Col xs={1}>
             <Row>
               <Col xs={8} className="controls">
-                <Button label="Add" onClick={this.onClickAddToTabHandler} />
+                <Button label="Add" onClick={this.handleAddToTab} />
               </Col>
               <Col xs={4} className="string-labels">
                 {STRINGS.map((string, stringIndex) =>
@@ -160,7 +164,7 @@ export default class TabEditor extends React.Component {
                 key={`s${stringIndex + 1}`}
                 numString={stringIndex + 1}
                 frets={FRETS}
-                onClickFretHandler={this.onClickFretHandler}
+                handleFretClick={this.handleFretClick}
               />)
             }
           </Col>

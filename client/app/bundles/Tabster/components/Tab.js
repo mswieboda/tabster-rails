@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import TabEditor from './TabEditor';
 
 export default class Tab extends React.Component {
   static propTypes = {
     title: PropTypes.string,
-    tab: PropTypes.string,
+    // make sure tab is formatted with types first
+    // tab: PropTypes.string,
     editMode: PropTypes.bool
   };
 
@@ -14,8 +16,30 @@ export default class Tab extends React.Component {
     this.state = {
       editMode: false,
       title: this.props.title,
-      tab: this.props.tab
+      selection: { sectionIndex: 1, row: 5, column: 3 },
+      tab: [
+        { type: "text", value: "Test tab:" },
+        {
+          type: "tab", value: [
+            "e|---".split(''),
+            "B|---".split(''),
+            "G|---".split(''),
+            "D|---".split(''),
+            "A|---".split(''),
+            "E|---".split(''),
+          ]
+        }
+      ]
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleToggleEditModeClick = this.handleToggleEditModeClick.bind(this);
+    this.handleAddToTab = this.handleAddToTab.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   handleToggleEditModeClick(event) {
@@ -24,14 +48,27 @@ export default class Tab extends React.Component {
     }));
   }
 
-  handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  handleAddToTab(tabOutput) {
+    let { selection, tab } = this.state;
+
+    if (tab[selection.sectionIndex].type == "tab") {
+      _.forEach(tab[selection.sectionIndex].value, (row, index) => {
+        row[selection.column] = tabOutput[index];
+      });
+    }
+    else {
+      console.log("not appended, you're selecting text");
+    }
+
+    this.setState({ tab: tab });
   }
 
   render() {
     const { editMode, title, tab } = this.state;
     const { match } = this.props;
+    const tabText = tab.map(t => {
+      return t.type === "tab" ? t.value.map(row => row.join("")).join("\n") : t.value;
+    }).join("\n");
 
     return (
       <div>
@@ -41,7 +78,7 @@ export default class Tab extends React.Component {
         {!editMode &&
           <div>
             <h1>{title}</h1>
-            <pre>{tab}</pre>
+            <pre>{tabText}</pre>
           </div>
         }
         {editMode &&
@@ -55,9 +92,10 @@ export default class Tab extends React.Component {
               />
             </div>
             <div>
+              <TabEditor handleAddToTab={this.handleAddToTab} />
               <textarea
                 name="tab"
-                value={tab}
+                value={tabText}
                 onChange={e => this.handleChange(e)}
               />
             </div>
