@@ -2,12 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import TabEditor from './TabEditor';
+import TabView from './TabView';
 
 export default class Tab extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     // make sure tab is formatted with types first
-    // tab: PropTypes.string,
+    // as an array
+    // tab: PropTypes.array,
   };
 
   constructor(props) {
@@ -56,27 +58,15 @@ export default class Tab extends React.Component {
     this.setState({ tab: tab });
   }
 
-  tabToString(tab) {
-    return tab.map(section => {
-      return section.type === "tab" ? this.tabSectionToString(section) : section.value;
-    }).join("\n");
-  }
-
-  tabSectionToString(section) {
-    return section.value.map(row => row.join("")).join("\n");
-  }
-
   render() {
-    const { editMode, title, tab } = this.state;
-    const { match } = this.props;
-    const tabText = this.tabToString(tab);
+    const { title, tab } = this.state;
 
     return (
       <div>
         <div>
           <h1>{title}</h1>
           <TabEditor handleAddToTab={this.handleAddToTab} />
-          <pre>{tabText}</pre>
+          <TabView tab={tab} />
         </div>
         <Link to="/tabs">Back to Tabs</Link>
       </div>
