@@ -50,6 +50,11 @@
   text-align: center;
 }
 
-.tab-col.selected {
-  background-color: #00FFFF;
+.tab-note {
+  font-size: 18px;
+  padding: 3px 9px;
+
+  &.selected {
+    background-color: #00FFFF;
+  }
 }

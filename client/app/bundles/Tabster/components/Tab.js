@@ -16,9 +16,21 @@ export default class Tab extends React.Component {
     super(props);
     this.state = {
       title: this.props.title,
-      selection: { sectionIndex: 1, row: 5, column: 3 },
+      selection: { section: 1, row: 5, column: 3 },
       tab: [
         { type: "text", value: "Test tab:" },
+        {
+          type: "tab", value: [
+            "e|---------------".split(''),
+            "B|---------------".split(''),
+            "G|---------------".split(''),
+            "D|---------------".split(''),
+            "A|---------------".split(''),
+            "E|---------------".split(''),
+          ]
+        },
+        { type: "text", value: "More text, blah blah blah" },
+        { type: "text", value: "Even more text, blah!" },
         {
           type: "tab", value: [
             "e|---------------".split(''),
@@ -44,11 +56,11 @@ export default class Tab extends React.Component {
 
   handleAddToTab(tabOutput) {
     let { selection, tab } = this.state;
-    let { sectionIndex, column } = selection;
+    let { section, column } = selection;
 
-    if (tab[sectionIndex].type == "tab") {
+    if (tab[section].type == "tab") {
       // Replaces the chord at the selected column, with desired chord
-      _.forEach(tab[sectionIndex].value, (row, index) => {
+      _.forEach(tab[section].value, (row, index) => {
         row[column] = tabOutput[index].toString();
       });
     }
@@ -59,12 +71,14 @@ export default class Tab extends React.Component {
     this.setState({ tab: tab });
   }
 
-  handleSelectColumn(colIndex) {
-    if (colIndex === this.state.selectedColumn) {
-      this.setState({ selection: { ...this.state.selection, column: undefined }});
+  handleSelectColumn(section, noteIndex) {
+    const { selection } = this.state;
+
+    if (selection && section == selection.section && noteIndex === selection.column) {
+      this.setState({ selection: { section: undefined, row: undefined, column: undefined }});
     }
     else {
-      this.setState({ selection: { ...this.state.selection, column: colIndex }});
+      this.setState({ selection: { ...this.state.selection, section: section, column: noteIndex }});
     }
   }
 
@@ -78,6 +92,7 @@ export default class Tab extends React.Component {
           <TabEditor handleAddToTab={this.handleAddToTab} />
           <TabView
             tab={tab}
+            selectedSection={selection.section}
             selectedColumn={selection.column}
             handleSelectColumn={this.handleSelectColumn}
           />
