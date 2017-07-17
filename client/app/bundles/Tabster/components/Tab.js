@@ -21,12 +21,12 @@ export default class Tab extends React.Component {
         { type: "text", value: "Test tab:" },
         {
           type: "tab", value: [
-            "e|---".split(''),
-            "B|---".split(''),
-            "G|---".split(''),
-            "D|---".split(''),
-            "A|---".split(''),
-            "E|---".split(''),
+            "e|---------------".split(''),
+            "B|---------------".split(''),
+            "G|---------------".split(''),
+            "D|---------------".split(''),
+            "A|---------------".split(''),
+            "E|---------------".split(''),
           ]
         }
       ]
@@ -34,6 +34,7 @@ export default class Tab extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleAddToTab = this.handleAddToTab.bind(this);
+    this.handleSelectColumn = this.handleSelectColumn.bind(this);
   }
 
   handleChange(event) {
@@ -48,7 +49,7 @@ export default class Tab extends React.Component {
     if (tab[sectionIndex].type == "tab") {
       // Replaces the chord at the selected column, with desired chord
       _.forEach(tab[sectionIndex].value, (row, index) => {
-        row[column] = tabOutput[index];
+        row[column] = tabOutput[index].toString();
       });
     }
     else {
@@ -58,15 +59,28 @@ export default class Tab extends React.Component {
     this.setState({ tab: tab });
   }
 
+  handleSelectColumn(colIndex) {
+    if (colIndex === this.state.selectedColumn) {
+      this.setState({ selection: { ...this.state.selection, column: undefined }});
+    }
+    else {
+      this.setState({ selection: { ...this.state.selection, column: colIndex }});
+    }
+  }
+
   render() {
-    const { title, tab } = this.state;
+    const { title, tab, selection } = this.state;
 
     return (
       <div>
         <div>
           <h1>{title}</h1>
           <TabEditor handleAddToTab={this.handleAddToTab} />
-          <TabView tab={tab} />
+          <TabView
+            tab={tab}
+            selectedColumn={selection.column}
+            handleSelectColumn={this.handleSelectColumn}
+          />
         </div>
         <Link to="/tabs">Back to Tabs</Link>
       </div>
