@@ -63,6 +63,22 @@ export default class Tab extends React.Component {
       _.forEach(tab[section].value, (row, index) => {
         row[column] = tabOutput[index].toString();
       });
+
+      const nextSelectionColumn = selection.column + 1;
+
+      if (nextSelectionColumn + 1 > tab[section].value.length) {
+        _.forEach(tab[section].value, (row, index) => {
+          row[nextSelectionColumn] = '-';
+        });
+      }
+
+      this.setState({
+        ...this.state,
+        selection: {
+          ...this.state.selection,
+          column: nextSelectionColumn
+        }
+      });
     }
     else {
       console.log("not appended, you're selecting text");
