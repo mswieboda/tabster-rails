@@ -66,6 +66,7 @@ class TabText extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleClick(e) {
@@ -79,8 +80,12 @@ class TabText extends React.Component {
   handleKeyDown(e) {
     if (this.state.isEdit && (e.key == "Enter" || e.key == "Tab")) {
       e.preventDefault();
-      this.setState({ isEdit: !this.state.isEdit });
+      this.setState({ isEdit: false });
     }
+  }
+
+  handleBlur(e) {
+    this.setState({ isEdit: false });
   }
 
   render() {
@@ -90,17 +95,23 @@ class TabText extends React.Component {
       <div>
         {
           !isEdit &&
-          <code onClick={this.handleClick}>
+          <code
+            style={{ width: "100%" }}
+            onClick={this.handleClick}
+          >
             {text}
           </code>
         }
         {
           isEdit &&
           <input
+            style={{ width: "100%" }}
+            autoFocus
             type="text"
             value={text}
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
+            onBlur={this.handleBlur}
            />
         }
       </div>
