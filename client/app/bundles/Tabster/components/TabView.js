@@ -28,7 +28,7 @@ class TabSection extends React.Component {
     return(
       <div>
         { section.type === "text" &&
-          <code>{section.value}</code>
+          <TabText text={section.value} />
         }
         { section.type === "tab" &&
           <div>
@@ -49,6 +49,62 @@ class TabSection extends React.Component {
         }
       </div>
     )
+  }
+}
+
+class TabText extends React.Component {
+  static propTypes = {
+    text: PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: this.props.text,
+      isEdit: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  handleClick(e) {
+    this.setState({ isEdit: !this.state.isEdit });
+  }
+
+  handleChange(e) {
+    this.setState({ text: e.target.value });
+  }
+
+  handleKeyDown(e) {
+    if (this.state.isEdit && (e.key == "Enter" || e.key == "Tab")) {
+      e.preventDefault();
+      this.setState({ isEdit: !this.state.isEdit });
+    }
+  }
+
+  render() {
+    const { text, isEdit } = this.state;
+
+    return(
+      <div>
+        {
+          !isEdit &&
+          <code onClick={this.handleClick}>
+            {text}
+          </code>
+        }
+        {
+          isEdit &&
+          <input
+            type="text"
+            value={text}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+           />
+        }
+      </div>
+    );
   }
 }
 
