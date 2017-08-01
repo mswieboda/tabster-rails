@@ -23,5 +23,6 @@ dependencies:
   jennifer:
     github: imdrasil/jennifer.cr
 
+development_dependencies:
   icr:
     github: greyblake/crystal-icr

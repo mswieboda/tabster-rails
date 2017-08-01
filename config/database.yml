@@ -11,3 +11,11 @@ development:
 test:
   db: tabster_test
   <<: *defaults
+
+production:
+  db: d1i89hpqg0vcpq
+  host: ec2-50-17-217-166.compute-1.amazonaws.com
+  port: 5432
+  user: mtdsalibkbgzqo
+  password: 33404710762fd31bde520bc76d740a48909e24d05641a87ee723245bea7c17f1
+  sslmode: require
