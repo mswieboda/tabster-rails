@@ -22,6 +22,7 @@ const config = {
       'es5-shim/es5-sham',
       'babel-polyfill',
       './app/bundles/HelloWorld/startup/registration',
+      './app/bundles/Tabster/startup/registration',
     ],
   },
 
@@ -36,6 +37,10 @@ const config = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      react: resolve('./node_modules/react'),
+      'react-dom': resolve('./node_modules/react-dom'),
+    },
   },
 
   plugins: [
@@ -62,6 +67,35 @@ const config = {
         test: /\.jsx?$/,
         use: 'babel-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css?$/,
+        loader: 'style-loader!css-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css?$/,
+        loader: 'style-loader!css-loader',
+        include: /flexboxgrid/,
+      },
+      {
+        test: /\.css?$/,
+        loader: 'style-loader!css-loader',
+        include: /marx-css/,
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader" // creates style nodes from JS strings
+          },
+          {
+            loader: "css-loader" // translates CSS into CommonJS
+          },
+          {
+            loader: "sass-loader" // compiles Sass to CSS
+          }
+        ]
       },
     ],
   },

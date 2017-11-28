@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -14,19 +15,23 @@ require("../../../../node_modules/marx-css/css/marx.min.css");
 require("../../../../node_modules/marx-css/css/marx.styl.min.css");
 require("../../../../css/styles.scss");
 
-const TabsterApp = ({ props }, _railsContext) => {
-  const store = createStore(tabsterApp, props);
-  const reactComponent = (
-    <Provider store={store}>
-      <Router>
-        <App/>
-      </Router>
-    </Provider>
-  );
-  return reactComponent;
-};
+export default class Tabster extends React.Component {
+  /**
+   * @param props - Comes from your rails view.
+   */
+  constructor(props) {
+    super(props);
 
-ReactDOM.render(
-  <TabsterApp props={props} />,
-  document.getElementById('app')
-);
+    this.store = createStore(tabsterApp, props);
+  }
+
+  render() {
+    return (
+      <Provider store={this.store}>
+        <Router>
+          <App/>
+        </Router>
+      </Provider>
+    );
+  }
+}
