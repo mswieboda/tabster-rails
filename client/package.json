@@ -6,10 +6,10 @@
     "npm": "3.5.0"
   },
   "scripts": {
-    "build:test": "webpack --config client/webpack.config.js",
-    "build:production": "NODE_ENV=production webpack --config client/webpack.config.js",
-    "build:development": "webpack --config client/webpack.config.js",
-    "watch": "webpack -w --config client/webpack.config.js"
+    "build:test": "webpack --config webpack.config.js",
+    "build:production": "NODE_ENV=production webpack --config webpack.config.js",
+    "build:development": "webpack --config webpack.config.js",
+    "watch": "webpack -w --config webpack.config.js"
   },
   "cacheDirectories": [
     "node_modules",

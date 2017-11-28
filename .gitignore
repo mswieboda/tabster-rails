@@ -13,6 +13,8 @@
 /log/*
 !/log/.keep
 /tmp
+/log
+log/*
 
 # NPM
 npm-debug.log*
