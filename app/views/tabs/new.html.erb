@@ -1,0 +1,13 @@
+<%= form_with scope: :tab, local: true do |form| %>
+  <%= form.label :title %>
+  <div>
+    <%= form.text_field :title %>
+  </div>
+
+  <%= form.label :tab %><br>
+  <div>
+    <%= form.text_area :tab %>
+  </div>
+
+  <%= form.submit %>
+<% end %>

@@ -8,7 +8,7 @@ let AddTab = ({ dispatch }) => {
 
   return (
     <div>
-      <form action="/api/tabs/create" method="post">
+      <form action="/tabs" method="post">
 
         <label htmlFor="title">Title</label>
         <div>
@@ -17,7 +17,7 @@ let AddTab = ({ dispatch }) => {
 
         <label htmlFor="tab">Tab</label>
         <div>
-          <textarea name="tab"  id="tab"></textarea>
+          <textarea name="tab" id="tab"></textarea>
         </div>
 
         <button type="submit">
